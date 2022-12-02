@@ -11,16 +11,11 @@ from heapq       import heappop, heappush
 
 def Input(day):
     "Open this day's input file."
-    # filename = 'advent2016/input{}.txt'.format(day)
-    # try:
-    #     return open(filename)
-    # except FileNotFoundError:
-    #     return urllib.request.urlopen("http://norvig.com/ipython/" + filename)
-    filename = '2022/solutions/input{}.txt'.format(day)
+    filename = '2022/data/input_{}.txt'.format(day)
     try:
         return open(filename)
     except FileNotFoundError:
-        return "can't open file"
+        return "Can't open file."
 
 
 def transpose(matrix): return zip(*matrix)
