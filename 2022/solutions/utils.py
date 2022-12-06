@@ -19,10 +19,16 @@ def Input(day):
         return "Can't open file."
 
 
-# with open(filename) as f:
-#    mylist = f.read().splitlines()
+def contains_number(string):
+    return bool(re.search(r'\d', string))
 
 
+def largestNumber(in_str):
+    l=[int(x) for x in in_str.split() if x.isdigit()]
+    return max(l) if l else None
+
+
+# Paul Authorship: 
 def transpose(matrix):
     return zip(*matrix)
 
