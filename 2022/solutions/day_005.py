@@ -36,8 +36,11 @@ def move_crates(data, version: int):
             self.boxes = stacks
 
         def move_v1(self, amount, starting_stack, ending_stack):
+            # take the starting stack amount and reverse it
             movers = self.boxes[starting_stack - 1][:amount][::-1]
+            # remove movers from starting stack
             self.boxes[starting_stack - 1] = self.boxes[starting_stack - 1][amount:]
+            # add movers to ending stack
             self.boxes[ending_stack - 1] = movers + self.boxes[ending_stack - 1]
 
         def move_v2(self, amount, starting_stack, ending_stack):
