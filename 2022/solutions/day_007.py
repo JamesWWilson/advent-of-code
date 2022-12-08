@@ -48,15 +48,14 @@ class Node:
             node.size += self.update_size_subdir(subdir)
         return node.size
 
-
     def sum(self, max):
         total = 0
-        if len(self.children) != 0: # children exist 
+        if len(self.children) != 0:  # children exist
             for subdir in self.children:
                 total += sum(subdir, max)
                 print(subdir)
                 print(dir)
-        else:  # no children 
+        else:  # no children
             for dir in self.children:
                 if dir.size <= max:
                     total += dir.size
@@ -65,39 +64,27 @@ class Node:
                     print("pass")
         return total
 
-
-    # def jacob_sum_outer(self):
-    #     total = 0
-    #     total = self.jacob_sum_recursive(self, total)
-    #     return(total)
-
-
     def jacob_sum_recursive(self):
-        total = 0 
+        total = 0
         if self.size <= 100000:
             total += self.size
         for dir in self.children:
             total += dir.jacob_sum_recursive()
-        return(total)
-        
-        
-# 95437
+        return total
 
-    # def sum_dirs(self, max):
-    #     for subdir in self.children:
-    #         self.total += self.sum_subdirs(subdir, max)
-    #         print(subdir)
-    #     return(self.total)
+    def total_directory(self):
+        total = 0
+        total += self.size
+        for dir in self.children:
+            total += dir.total_directory()
+        return total
 
-    # def sum_subdirs(self, node, max):
-    #     for subdir in node.children:
-    #         print(subdir)
-    #         if subdir.size <= max:
-    #             return(self.size)
-    #             print('pass')
-    #         else:
-    #             return(0)
-    #     #return(sum)
+    def min_needed_directory(self, min_needed, min_dir):
+        if min_needed <= self.size < min_dir:
+            min_dir = self.size
+        for dir in self.children:
+            min_dir = dir.min_needed_directory(min_needed, min_dir)
+        return min_dir
 
     def __lt__(self, other):
         return self.size < other.size
@@ -122,37 +109,28 @@ def extract_file_structure(data):
         if ("$ cd" in line) and (line != "$ cd /"):
             if line[5:] == "..":
                 # revert to previous directory up ('go_up')
-                print(line)
                 Tree = Tree.exit_directory()
-                print(Tree)
             else:
                 # Create new sub directory with line[4:] as name ('add_node' w/ name)
-                print(line)
                 Tree = Tree.create_and_enter_dir(name_input=line[5:])
         elif ("dir" in line) or ("$ ls" in line):
             pass
         elif contains_number(line):
             # add to current directory data
-            print(line)
-            # print(int(re.findall(r"\d+", 'abc123')[0]))
             Tree.add_value(int(re.findall(r"\d+", line)[0]))
-            print(Tree.get_value())
         else:
-            print("Read error")
-            print(line)
+            print("")
     Tree = Tree.return_to_root()
-    print(Tree)
-    print(Tree.get_children())
-    print(Tree.update_sizes())
+    # first calculate part 2
+    total_dir_size = Tree.total_directory()
+    space_needed = 30000000 - (70000000 - total_dir_size)
+    #print(total_dir_size)
+    #print("Part 2", Tree.min_needed_directory(min_needed=space_needed, min_dir=total_dir_size))
+    # Update directory sizes for part 1
+    Tree.update_sizes()
     Tree = Tree.return_to_root()
-    # Tree = Tree.enter_directory('a')
-    # print(Tree.get_value())
-    # print(Tree)
-    # print(Tree.get_children())
-    # print(sum(filter(lambda x: x <= 100000, Tree.children)))
-    # print(Tree.sum_dirs(100000))
-    print(Tree.jacob_sum_recursive())
-
+    print("Part 1", Tree.jacob_sum_recursive())
+    print("Part 2", Tree.min_needed_directory(min_needed=space_needed, min_dir=total_dir_size))
 
 
 ## TEST
@@ -183,9 +161,4 @@ test = [
 ]
 
 extract_file_structure(test)
-
-extract_file_structure(Input("007").read().splitlines())
-
-# print(Input("007").read().splitlines())
-
-
+extract_file_structure(Input("007").read().splitlines()) # 1118405
