@@ -28,6 +28,33 @@ def largestNumber(in_str):
     return max(l) if l else None
 
 
+def neighbors4(point):
+    "The four neighbors (without diagonals)."
+    x, y = point
+    return [[x + 1, y], [x - 1, y], [x, y + 1], [x, y - 1]]
+
+
+def neighbors8(point):
+    "The eight neighbors (with diagonals)."
+    x, y = point
+    return [
+        [x + 1, y],
+        [x - 1, y],
+        [x, y + 1],
+        [x, y - 1],
+        [x + 1, y + 1],
+        [x - 1, y - 1],
+        [x + 1, y - 1],
+        [x - 1, y + 1],
+    ]
+
+
+
+
+
+
+
+
 # Paul Authorship: 
 def transpose(matrix):
     return zip(*matrix)
@@ -81,25 +108,26 @@ def Y(point):
     return point[1]
 
 
-def neighbors4(point):
-    "The four neighbors (without diagonals)."
-    x, y = point
-    return ((x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1))
+# def neighbors4(point):
+#     "The four neighbors (without diagonals)."
+#     x, y = point
+#     return ((x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1))
 
 
-def neighbors8(point):
-    "The eight neighbors (with diagonals)."
-    x, y = point
-    return (
-        (x + 1, y),
-        (x - 1, y),
-        (x, y + 1),
-        (x, y - 1),
-        (x + 1, y + 1),
-        (x - 1, y - 1),
-        (x + 1, y - 1),
-        (x - 1, y + 1),
-    )
+# def neighbors8(point):
+#     "The eight neighbors (with diagonals)."
+#     x, y = point
+#     return (
+#         (x + 1, y),
+#         (x - 1, y),
+#         (x, y + 1),
+#         (x, y - 1),
+#         (x + 1, y + 1),
+#         (x - 1, y - 1),
+#         (x + 1, y - 1),
+#         (x - 1, y + 1),
+#     )
+
 
 
 def cityblock_distance(p, q=(0, 0)):
