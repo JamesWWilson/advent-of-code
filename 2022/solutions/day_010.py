@@ -1,5 +1,6 @@
 from utils import *
 
+
 def register_calculation(data):
     register = 1  # start at one
     cycle = 0
@@ -8,7 +9,7 @@ def register_calculation(data):
     signal_strengths_repo = []
 
     def cycle_click_1():
-        nonlocal cycle,signal_strength_sum
+        nonlocal cycle, signal_strength_sum
         cycle += 1
         if cycle in checkpoints:
             new_value = cycle * register
@@ -23,7 +24,7 @@ def register_calculation(data):
             cycle_click_1()
             register += int(line[4:])
 
-    return(signal_strength_sum)
+    return signal_strength_sum
 
 
 def record_and_print_pixels(data):
@@ -62,7 +63,7 @@ test_input = Input("010_test").read().splitlines()
 # TEST
 assert register_calculation(test_input) == 13140
 
-# Part 1 
+# Part 1
 print(register_calculation(real_input))
 # Part 2
 record_and_print_pixels(real_input)

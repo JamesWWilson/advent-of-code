@@ -54,7 +54,7 @@ def neighbors8(point):
 
 
 
-
+# # # # # # # # # # #
 # Paul Authorship: 
 def transpose(matrix):
     return zip(*matrix)
